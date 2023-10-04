@@ -1,58 +1,34 @@
-
 local plugins = {
-  -- helper library
+  -- helper libraries
   "nvim-lua/plenary.nvim",
+  "nvim-tree/nvim-web-devicons",
 
-  -- color themes
+  -------- color themes --------
   {
     "navarasu/onedark.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
   },
-  {
+  --[[{
     "folke/tokyonight.nvim",
     --lazy = false,
     priority = 1000,
     --opts = {},
-  },
-  {
-    "nvim-tree/nvim-web-devicons",
-    opts = function()
-      return {} --require "config.devicons"
-    end,
-    config = function(_, opts)
-      require("nvim-web-devicons").setup(opts)
-    end,
-  },
-  -- color scheme customization
-  {
+  },]]
+
+  -- colorscheme customization
+  --[[{
     "rktjmp/lush.nvim",
     opts = function()
       return require "configs.lush_nvim"
     end,
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require("lush").setup(opts)
     end,
-  },
+  },]]
 
-  -- better navigation
-  {
-    "nvim-treesitter/nvim-treesitter",
-    init = function()
-      require("utils").lazy_load "nvim-treesitter"
-    end,
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate",
-    opts = function()
-      return require "configs.treesitter"
-    end,
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-  },
-
-  -- lsp stuff
+  -------- lsp stuff --------
   {
     "williamboman/mason.nvim", -- lsp-servers manager
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
@@ -70,6 +46,7 @@ local plugins = {
       vim.g.mason_binaries_list = opts.ensure_installed]]
     end,
   },
+
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
@@ -80,7 +57,7 @@ local plugins = {
       require("mason-lspconfig").setup(opts)
     end
   },
-  
+
   {
     "neovim/nvim-lspconfig",
     lazy = false,
@@ -90,16 +67,18 @@ local plugins = {
     config = function()
       require "configs.lspconfig"
     end,
-    dependencies = { -- format & linting
+    dependencies = {
+      -- formatting & linting
       {
         "jose-elias-alvarez/null-ls.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
         config = function()
           require "configs.null-ls"
         end,
       },
     },
   },
-  
+
   -- auto-completion
   {
     "hrsh7th/nvim-cmp",
@@ -131,29 +110,40 @@ local plugins = {
     end,
   },
 
-
--- status line & buffer line (I dont know for now)
+  -------- navigation stuff --------
   {
-    'nvim-lualine/lualine.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    lazy = false,
+    "nvim-treesitter/nvim-treesitter",
+    init = function()
+      require("utils").lazy_load "nvim-treesitter"
+    end,
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
     opts = function()
-      return require "configs.lualine"
+      return require "configs.treesitter"
     end,
     config = function(_, opts)
-      require("lualine").setup(opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
-  { -- I'm not using it
-    "akinsho/bufferline.nvim",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    lazy = true,
+  -- fuzzy finder
+  {
+    "nvim-telescope/telescope.nvim",
+    --dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = "Telescope",
+    init = function()
+      require("utils").load_mappings "telescope"
+    end,
     opts = function()
-      return require "configs.bufferline"
+      return require "configs.telescope"
     end,
     config = function(_, opts)
-      require("bufferline").setup(opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
     end,
   },
 
@@ -171,26 +161,32 @@ local plugins = {
     end
   },
 
-  -- file managing , picker etc comments below are unchecked
+  -- status line
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    cmd = "Telescope",
-    init = function()
-      require("utils").load_mappings "telescope"
-    end,
+    'nvim-lualine/lualine.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    lazy = false,
     opts = function()
-      return require "configs.telescope"
+      return require "configs.lualine"
     end,
     config = function(_, opts)
-      local telescope = require "telescope"
-      telescope.setup(opts)
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
+      require("lualine").setup(opts)
     end,
   },
+
+  --[[{ -- not using it
+    "akinsho/bufferline.nvim",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    lazy = true,
+    opts = function()
+      return require "configs.bufferline"
+    end,
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+    end,
+  },]]
+
+  -- just the sidebar fs tree
   {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
