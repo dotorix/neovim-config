@@ -1,11 +1,11 @@
 local plugins = {
   -- helper libraries
-  "nvim-lua/plenary.nvim",
-  "nvim-tree/nvim-web-devicons",
+  'nvim-lua/plenary.nvim',
+  'nvim-tree/nvim-web-devicons',
 
   -------- color themes --------
   {
-    "navarasu/onedark.nvim",
+    'navarasu/onedark.nvim',
     lazy = false,
     priority = 1000,
     opts = {},
@@ -30,13 +30,13 @@ local plugins = {
 
   -------- lsp stuff --------
   {
-    "williamboman/mason.nvim", -- lsp-servers manager
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    'williamboman/mason.nvim', -- lsp-servers manager
+    cmd = { 'Mason', 'MasonInstall', 'MasonInstallAll', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
     opts = function()
-      return require("configs.mason").options
+      return require('configs.mason').options
     end,
     config = function(_, opts)
-      require("mason").setup(opts)
+      require('mason').setup(opts)
 
       -- custom nvchad cmd to install all mason binaries listed
       --[[vim.api.nvim_create_user_command("MasonInstallAll", function()
@@ -48,32 +48,32 @@ local plugins = {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    'williamboman/mason-lspconfig.nvim',
     lazy = false,
     opts = function()
-      return require("configs.mason").lspconfig
+      return require('configs.mason').lspconfig
     end,
     config = function(_, opts)
-      require("mason-lspconfig").setup(opts)
-    end
+      require('mason-lspconfig').setup(opts)
+    end,
   },
 
   {
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     lazy = false,
     init = function()
-      require("utils").lazy_load "nvim-lspconfig"
+      require('utils').lazy_load 'nvim-lspconfig'
     end,
     config = function()
-      require "configs.lspconfig"
+      require 'configs.lspconfig'
     end,
     dependencies = {
       -- formatting & linting
       {
-        "jose-elias-alvarez/null-ls.nvim",
-        dependencies = "nvim-lua/plenary.nvim",
+        'jose-elias-alvarez/null-ls.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
         config = function()
-          require "configs.null-ls"
+          require 'configs.null-ls'
         end,
       },
     },
@@ -81,84 +81,101 @@ local plugins = {
 
   -- auto-completion
   {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
       {
         -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        'L3MON4D3/LuaSnip',
+        dependencies = 'rafamadriz/friendly-snippets',
+        opts = { history = true, updateevents = 'TextChanged,TextChangedI' },
         config = function(_, opts)
-          require("configs.others").luasnip(opts)
+          require('configs.others').luasnip(opts)
         end,
       },
       -- cmp sources plugins
       {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
+        'saadparwaiz1/cmp_luasnip',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
       },
     },
     opts = function()
-      return require "configs.cmp"
+      return require 'configs.cmp'
     end,
     config = function(_, opts)
-      require("cmp").setup(opts)
+      require('cmp').setup(opts)
     end,
   },
 
+  -- debugging
+  {
+    'mfussenegger/nvim-dap',
+    config = function()
+      require 'configs.dap'
+    end,
+  },
+
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = 'mfussenegger/nvim-dap',
+  },
+
+  {
+    'theHamsta/nvim-dap-virtual-text',
+  },
   -------- navigation stuff --------
   {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     init = function()
-      require("utils").lazy_load "nvim-treesitter"
+      require('utils').lazy_load 'nvim-treesitter'
     end,
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate",
+    cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
+    build = ':TSUpdate',
     opts = function()
-      return require "configs.treesitter"
+      return require 'configs.treesitter'
     end,
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require('nvim-treesitter.configs').setup(opts)
     end,
   },
 
   -- fuzzy finder
   {
-    "nvim-telescope/telescope.nvim",
+    'nvim-telescope/telescope.nvim',
     --dependencies = "nvim-treesitter/nvim-treesitter",
-    cmd = "Telescope",
+    cmd = 'Telescope',
     init = function()
-      require("utils").load_mappings "telescope"
+      require('utils').load_mappings 'telescope'
     end,
     opts = function()
-      return require "configs.telescope"
+      return require 'configs.telescope'
     end,
     config = function(_, opts)
-      local telescope = require "telescope"
+      local telescope = require 'telescope'
       telescope.setup(opts)
       -- load extensions
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
+      --require'utils'.load_mappings 'telescope'
     end,
   },
 
   -- GIGACHAD navigation plugin
   {
-    "ThePrimeagen/harpoon",
+    'ThePrimeagen/harpoon',
     init = function()
-      require("utils").load_mappings "harpoon"
+      require('utils').load_mappings 'harpoon'
     end,
     opts = function()
-      return require "configs.harpoon"
+      return require 'configs.harpoon'
     end,
     config = function(_, opts)
       require('harpoon').setup(opts)
-    end
+    end,
   },
 
   -- status line
@@ -167,16 +184,16 @@ local plugins = {
     dependencies = 'nvim-tree/nvim-web-devicons',
     lazy = false,
     opts = function()
-      return require "configs.lualine"
+      return require 'configs.lualine'
     end,
     config = function(_, opts)
-      require("lualine").setup(opts)
+      require('lualine').setup(opts)
     end,
   },
 
   --[[{ -- not using it
     "akinsho/bufferline.nvim",
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = "nvim-tree/nvim-web-devicons",
     lazy = true,
     opts = function()
       return require "configs.bufferline"
@@ -188,33 +205,33 @@ local plugins = {
 
   -- just the sidebar fs tree
   {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    'nvim-tree/nvim-tree.lua',
+    cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
     init = function()
-      require("utils").load_mappings "nvimtree"
+      require('utils').load_mappings 'nvimtree'
     end,
     opts = function()
-      return require "configs.nvimtree"
+      return require 'configs.nvimtree'
     end,
     config = function(_, opts)
       --dofile(vim.g.base46_cache .. "nvimtree")
-      require("nvim-tree").setup(opts)
+      require('nvim-tree').setup(opts)
       --vim.g.nvimtree_side = opts.view.side
     end,
   },
 
   -- Only load whichkey after all the gui
   {
-    "folke/which-key.nvim",
-    keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
+    'folke/which-key.nvim',
+    keys = { '<leader>', '"', "'", '`', 'c', 'v', 'g' },
     init = function()
-      require("utils").load_mappings "whichkey"
+      require('utils').load_mappings 'whichkey'
     end,
     config = function(_, opts)
       --dofile(vim.g.base46_cache .. "whichkey")
-      require("which-key").setup(opts)
+      require('which-key').setup(opts)
     end,
   },
 }
 
-require("lazy").setup(plugins, require("configs.lazy_nvim"))
+require('lazy').setup(plugins, require 'configs.lazy_nvim')

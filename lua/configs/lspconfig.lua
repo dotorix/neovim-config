@@ -1,15 +1,14 @@
 local M = {}
 
-local servers = {"rust_analyzer", "clangd", "pyright", "lua_ls"} -- "pylsp"
+local servers = { 'rust_analyzer', 'clangd', 'lua_ls' } --, "pyright", "lua_ls"} -- "pylsp"
 
 M.on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
 
-  require("utils").load_mappings("lspconfig", { buffer = bufnr })
+  require('utils').load_mappings('lspconfig', { buffer = bufnr })
 
-
-  if client.supports_method "textDocument/semanticTokens" then
+  if client.supports_method 'textDocument/semanticTokens' then
     client.server_capabilities.semanticTokensProvider = nil
   end
 end
@@ -17,7 +16,7 @@ end
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities.textDocument.completion.completionItem = {
-  documentationFormat = { "markdown", "plaintext" },
+  documentationFormat = { 'markdown', 'plaintext' },
   snippetSupport = true,
   preselectSupport = true,
   insertReplaceSupport = true,
@@ -27,18 +26,37 @@ M.capabilities.textDocument.completion.completionItem = {
   tagSupport = { valueSet = { 1 } },
   resolveSupport = {
     properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
+      'documentation',
+      'detail',
+      'additionalTextEdits',
     },
   },
 }
 
 for _, lsp in ipairs(servers) do
-  require("lspconfig")[lsp].setup {
+  require('lspconfig')[lsp].setup {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
   }
 end
+
+-- pyright
+require('lspconfig').pyright.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = 'openFilesOnly',
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+  root_dir = function()
+    return vim.fn.getcwd()
+  end,
+  single_file_support = false,
+}
 
 return M

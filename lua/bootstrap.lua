@@ -1,13 +1,13 @@
 local M = {}
 
 M.echo = function(str)
-  vim.cmd "redraw"
-  vim.api.nvim_echo({ { str, "Bold" } }, true, {})
+  vim.cmd 'redraw'
+  vim.api.nvim_echo({ { str, 'Bold' } }, true, {})
 end
 
 local function shell_call(args)
   local output = vim.fn.system(args)
-  assert(vim.v.shell_error == 0, "External call failed with error code: " .. vim.v.shell_error .. "\n" .. output)
+  assert(vim.v.shell_error == 0, 'External call failed with error code: ' .. vim.v.shell_error .. '\n' .. output)
 end
 
 M.lazy = function(lazypath)
@@ -23,13 +23,13 @@ M.lazy = function(lazypath)
   require("base46").compile()
   ]]
   ------------ lazy.nvim ------------
-  M.echo "  Installing lazy.nvim & plugins ..."
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  shell_call { "git", "clone", "--filter=blob:none", "--branch=stable", repo, lazypath }
+  M.echo '  Installing lazy.nvim & plugins ...'
+  local repo = 'https://github.com/folke/lazy.nvim.git'
+  shell_call { 'git', 'clone', '--filter=blob:none', '--branch=stable', repo, lazypath }
   vim.opt.rtp:prepend(lazypath)
 
   -- install plugins
-  require "plugins"
+  require 'plugins'
 
   -- mason packages & show post_boostrap screen
   --require "nvchad.post_bootstrap"()

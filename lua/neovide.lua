@@ -1,22 +1,22 @@
 local M = {}
 
 M.font_increase = function()
-  local size = tonumber(vim.o.guifont:match("%d+"))
-  vim.o.guifont = vim.o.guifont:gsub("%d+", new_size+1)
+  local size = tonumber(vim.o.guifont:match '%d+')
+  vim.o.guifont = vim.o.guifont:gsub('%d+', new_size + 1)
 end
 
 M.font_decrease = function()
   print(vim.o.guifont)
-  local size = tonumber(vim.o.guifont:match("%d+"))
-  vim.o.guifont = vim.o.guifont:gsub("%d+", new_size-1)
+  local size = tonumber(vim.o.guifont:match '%d+')
+  vim.o.guifont = vim.o.guifont:gsub('%d+', new_size - 1)
 end
 
 M.init = function()
-  vim.g.guifont = "FiraCode Nerd Font Mono:h14"
-  require("utils").load_mappings "neovide"
+  vim.g.guifont = 'FiraCode Nerd Font Mono:h14'
+  require('utils').load_mappings 'neovide'
 
   vim.opt.linespace = 0
-  
+
   vim.g.neovide_refresh_rate = 165
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_no_idle = false
