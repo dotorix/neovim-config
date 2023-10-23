@@ -15,13 +15,14 @@ dap.adapters.lldb = {
 -- vscode-cpptools
 dap.adapters.cppdbg = {
   type = 'executable',
-  command = '<path-to-OpenDebugAD7>',
+  --command = '<path-to-OpenDebugAD7>',
+  command = '/home/admin/.vscode/extensions/ms-vscode.cpptools-1.17.5-linux-x64/debugAdapters/bin/OpenDebugAD7',
   id = 'cppdbg',
 }
 
 dap.configurations.cpp = {
   {
-    type = 'lldb',
+    type = 'cppdbg',
     name = 'Launch',
     request = 'launch',
     program = function()

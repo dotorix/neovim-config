@@ -13,15 +13,15 @@ return {
     tmux_autoclose_windows = false,
 
     -- filetypes that you want to prevent from adding to the harpoon list menu.
-    excluded_filetypes = { "harpoon" },
+    excluded_filetypes = { 'harpoon' },
 
     -- set marks specific to each git branch inside git repository
     mark_branch = false,
 
     -- enable tabline with harpoon marks
     tabline = false,
-    tabline_prefix = "   ",
-    tabline_suffix = "   ",
+    tabline_prefix = '   ',
+    tabline_suffix = '   ',
   },
   -- projects = {}
 }

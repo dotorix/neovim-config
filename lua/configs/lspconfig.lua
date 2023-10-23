@@ -1,6 +1,6 @@
 local M = {}
 
-local servers = { 'rust_analyzer', 'clangd', 'lua_ls' } --, "pyright", "lua_ls"} -- "pylsp"
+local servers = { 'rust_analyzer', 'clangd', 'lua_ls', 'sqlls' } --, "pyright", "lua_ls"} -- "pylsp"
 
 M.on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false

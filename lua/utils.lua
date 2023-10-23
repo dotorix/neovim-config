@@ -1,11 +1,8 @@
 local M = {}
 local merge_tb = vim.tbl_deep_extend
 
-M.load_mappings = function(section, mapping_opt)
-  --vim.schedule(function()
+M.load_mappings = function(section_name, mapping_opt)
   local function set_section_map(section_values)
-    if section_values.plugin then return end
-    section_values.plugin = nil
     local modes, val, opts
     for key, items in pairs(section_values) do
       modes = type(key) == 'string' and key or items[1]
@@ -25,16 +22,16 @@ M.load_mappings = function(section, mapping_opt)
       end
     end
   end
-
   local mappings = require 'mappings'
-
-  if type(section) == 'string' then
-    mappings[section]['plugin'] = nil
-    mappings = { mappings[section] }
+  if type(section_name) == 'string' then
+    mappings[section_name].lazy = nil
+    mappings = { mappings[section_name] }
   end
 
-  for _, sect in pairs(mappings) do
-    set_section_map(sect)
+  for _, section in pairs(mappings) do
+    if not section.lazy then
+      set_section_map(section)
+    end
   end
   --end)
 end

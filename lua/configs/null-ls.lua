@@ -32,6 +32,19 @@ local sources = {
 
   -- json
   b.formatting.jq,
+
+  --[[b.diagnostics.sqlfluff.with({
+    extra_args = { "--dialect", "postgres" }, -- change to your dialect
+  }),]]
+  b.formatting.sqlfluff.with({
+    extra_args = { "--dialect", "postgres" }, -- change to your dialect
+  }),
+
+  --[[b.formatting.pg_format.with({
+    extra_args = {
+      '-u','1', '-U','1', '-f','1', '-g'
+    }
+  }),]]
 }
 
 null_ls.setup {

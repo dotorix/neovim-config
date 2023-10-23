@@ -2,7 +2,7 @@
 
 local M = {}
 
---[[-- all possible variants
+--[[-- all possible ways
 M.example = {
   {"ni","<C-a>",'"+P',"Paste1"},
   ni = {"<C-b>",'"+P',"Paste2"},
@@ -107,13 +107,13 @@ M.general = {
 }
 
 M.neovide = {
-  plugin = true, -- do not load automatically
+  lazy = true, -- do not load automatically
   invtx = {
     ['<C-='] = {
-      function() require('neovide').font_increase() end,
+      function() require'neovide'.font_increase() end,
     },
     ['<C--'] = {
-      function() require('neovide').font_decrease() end,
+      function() require'neovide'.font_decrease() end,
     },
   },
   nv = {
@@ -123,52 +123,42 @@ M.neovide = {
 }
 
 M.harpoon = {
+  lazy=true,
   nv = {
-    ['<leader>a'] = { function() require('harpoon.mark').add_file() end, 'Harpoon the file' },
-    ['<leader>h'] = { function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon menu' },
+    ['<leader>a'] = { function() require'harpoon.mark'.add_file() end, 'Harpoon the file' },
+    ['<leader>h'] = { function() require'harpoon.ui'.toggle_quick_menu() end, 'Harpoon menu' },
   },
   nvi = {
-    ['<M-1>'] = { function() require('harpoon.ui').nav_file(1) end, 'mark1' },
-    ['<M-2>'] = { function() require('harpoon.ui').nav_file(2) end, 'mark2' },
-    ['<M-3>'] = { function() require('harpoon.ui').nav_file(3) end, 'mark3' },
-    ['<M-4>'] = { function() require('harpoon.ui').nav_file(4) end, 'mark4' },
-    ['<M-q>'] = { function() require('harpoon.ui').nav_prev() end, 'prev mark' },
-    ['<M-e>'] = { function() require('harpoon.ui').nav_next() end, 'next mark' },
+    ['<M-1>'] = { function() require'harpoon.ui'.nav_file(1) end, 'mark1' },
+    ['<M-2>'] = { function() require'harpoon.ui'.nav_file(2) end, 'mark2' },
+    ['<M-3>'] = { function() require'harpoon.ui'.nav_file(3) end, 'mark3' },
+    ['<M-4>'] = { function() require'harpoon.ui'.nav_file(4) end, 'mark4' },
+    ['<M-q>'] = { function() require'harpoon.ui'.nav_prev() end, 'prev mark' },
+    ['<M-e>'] = { function() require'harpoon.ui'.nav_next() end, 'next mark' },
   },
 }
 
 M.lspconfig = {
-  plugin = true,
-
+  lazy = true,
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
-
   n = {
-    ['gD'] = { function() vim.lsp.buf.declaration() end, 'LSP declaration' },
-    ['gd'] = { function() vim.lsp.buf.definition() end, 'LSP definition' },
-    ['K'] = { function() vim.lsp.buf.hover() end, 'LSP hover' },
-    ['gi'] = { function() vim.lsp.buf.implementation() end, 'LSP implementation' },
-    ['<leader>ls'] = { function() vim.lsp.buf.signature_help() end, 'LSP signature help' },
-    ['<leader>D'] = { function() vim.lsp.buf.type_definition() end, 'LSP definition type' },
-
-    --[[['<leader>ra'] = {
-      function() require('nvchad_ui.renamer').open() end,
-      'LSP rename',
-    },]]
-
-    ['<leader>ca'] = { function() vim.lsp.buf.code_action() end, 'LSP code action' },
-
-    ['gr'] = { function() vim.lsp.buf.references() end, 'LSP references' },
-
+    ['gD'] = { vim.lsp.buf.declaration, 'LSP declaration' },
+    ['gd'] = { vim.lsp.buf.definition, 'LSP definition' },
+    ['K'] = { vim.lsp.buf.hover, 'LSP hover' },
+    ['gi'] = { vim.lsp.buf.implementation, 'LSP implementation' },
+    ['<leader>ls'] = { vim.lsp.buf.signature_help, 'LSP signature help' },
+    ['<leader>D'] = { vim.lsp.buf.type_definition, 'LSP definition type' },
+    ['<leader>ca'] = { vim.lsp.buf.code_action, 'LSP code action' },
+    ['gr'] = { vim.lsp.buf.references, 'LSP references' },
     ['<leader>f'] = {
       function() vim.diagnostic.open_float { border = 'rounded' } end,
       'Floating diagnostic',
     },
-
     ['[d'] = { function() vim.diagnostic.goto_prev { float = { border = 'rounded' } } end, 'Goto prev' },
     [']d'] = { function() vim.diagnostic.goto_next { float = { border = 'rounded' } } end, 'Goto next' },
-    ['<leader>q'] = { function() vim.diagnostic.setloclist() end, 'Diagnostic setloclist' },
-    ['<leader>wa'] = { function() vim.lsp.buf.add_workspace_folder() end, 'Add workspace folder' },
-    ['<leader>wr'] = { function() vim.lsp.buf.remove_workspace_folder() end, 'Remove workspace folder' },
+    ['<leader>q'] = { vim.diagnostic.setloclist, 'Diagnostic setloclist' },
+    ['<leader>wa'] = { vim.lsp.buf.add_workspace_folder, 'Add workspace folder' },
+    ['<leader>wr'] = { vim.lsp.buf.remove_workspace_folder, 'Remove workspace folder' },
     ['<leader>wl'] = {
       function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
       'List workspace folders',
@@ -177,69 +167,77 @@ M.lspconfig = {
 }
 
 M.dap = {
-  plugin = true,
+  lazy = true,
   n = {
-    ['<F1>'] = { function() require('dap').step_into() end, 'Debug step into' },
-    ['<F2>'] = { function() require('dap').step_over() end, 'Debug step over' },
-    ['<F3>'] = { function() require('dap').step_out() end, 'Debug step out' },
-    ['<F4>'] = { function() require('dap').continue() end, 'Debug continue' },
+    ['<F1>'] = { function() require'dap'.step_into() end, 'Debug step into' },
+    ['<F2>'] = { function() require'dap'.step_over() end, 'Debug step over' },
+    ['<F3>'] = { function() require'dap'.step_out() end, 'Debug step out' },
+    ['<F4>'] = { function() require'dap'.continue() end, 'Debug continue' },
 
-    ['<leader>b'] = { function() require('dap').toggle_breakpoint() end, 'Toggle breakpoint' },
+    ['<leader>b'] = { function() require'dap'.toggle_breakpoint() end, 'Toggle breakpoint' },
     ['<leader>B'] = {
-      function() require('dap').set_breakpoint(vim.fn.input('Condition: ')) end,
-      'Conditional breakpoint'
+      function() require'dap'.set_breakpoint(vim.fn.input 'Condition: ') end,
+      'Conditional breakpoint',
     },
     ['<leader>lp'] = {
-      function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log message: ')) end, 
-      'Log point'
+      function() require'dap'.set_breakpoint(nil, nil, vim.fn.input 'Log message: ') end,
+      'Log point',
     },
-    ['<leader>dr'] = { function() require('dap').repl.open() end, 'REPL open' },
+    ['<leader>dr'] = { function() require'dap'.repl.open() end, 'REPL open' },
   },
+}
+M.dapui = {
+  lazy = true,
+  n = {
+    ['<F5>'] = { function() require'dapui'.toggle() end, 'Toggle dap-ui' },
+  }
+}
+M.dapvirtualtext = {
+  lazy = true,
+  n = {
+    ['<F6>'] = {'<cmd> DapVirtualTextToggle <CR>', 'Toggle dap-virtual-text' },
+  }
 }
 
 M.nvimtree = {
-  plugin = true,
-
+  lazy = true,
   n = {
     -- toggle
     ['<C-n>'] = { '<cmd> NvimTreeToggle <CR>', 'Toggle nvimtree' },
-
     -- focus
     ['<leader>e'] = { '<cmd> NvimTreeFocus <CR>', 'Focus nvimtree' },
   },
 }
 
---local builtin = require('telescope.builtin')
 M.telescope = {
-  plugin = true,
-
+  lazy = true,
   n = {
     -- find
-    ['<leader>ff'] = { '<cmd> Telescope find_files <CR>', 'Find files' },
-    ['<leader>fa'] = { '<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>', 'Find all' },
-    ['<leader>fw'] = { '<cmd> Telescope live_grep <CR>', 'Live grep' },
-    ['<leader>fb'] = { '<cmd> Telescope buffers <CR>', 'Find buffers' },
-    ['<leader>fh'] = { '<cmd> Telescope help_tags <CR>', 'Help page' },
-    ['<leader>fo'] = { '<cmd> Telescope oldfiles <CR>', 'Find oldfiles' },
-    ['<leader>fz'] = { '<cmd> Telescope current_buffer_fuzzy_find <CR>', 'Find in current buffer' },
+    ['<leader>ff'] = { function() require'telescope.builtin'.find_files() end, 'Find files' },
+    ['<leader>fa'] = { function() require'telescope.builtin'.find_files { follow = true, no_ignore = true, hidden = true } end, 'Find all' },
+    --['<leader>fa'] = { '<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>', 'Find all' },
+    ['<leader>fw'] = { function() require'telescope.builtin'.live_grep() end, 'Live grep' },
+    ['<leader>fb'] = { function() require'telescope.builtin'.buffers() end, 'Find buffers' },
+    ['<leader>fh'] = { function() require'telescope.builtin'.help_tags() end, 'Help page' },
+    ['<leader>fo'] = { function() require'telescope.builtin'.oldfiles() end, 'Find oldfiles' },
+    ['<leader>fz'] = { function() require'telescope.builtin'.current_buffer_fuzzy_find() end, 'Find in current buffer' },
+    --git
+    ['<leader>cm'] = { function() require'telescope.builtin'.git_commits() end, 'Git commits' },
+    ['<leader>gt'] = { function() require'telescope.builtin'.git_status() end, 'Git status' },
 
-    -- git
-    ['<leader>cm'] = { '<cmd> Telescope git_commits <CR>', 'Git commits' },
-    ['<leader>gt'] = { '<cmd> Telescope git_status <CR>', 'Git status' },
+    ['<leader>ma'] = { function() require'telescope.builtin'.marks() end, 'Telescope bookmarks' },
 
-    -- pick a hidden term
-    ['<leader>pt'] = { '<cmd> Telescope terms <CR>', 'Pick hidden term' },
+  -- pick a hidden term
+  --['<leader>pt'] = { '<cmd> Telescope terms <CR>', 'Pick hidden term' },
 
-    -- theme switcher
-    ['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
-
-    ['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
+  -- theme switcher
+  --['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
   },
 }
 
-M.whichkey = {
-  plugin = true,
 
+M.whichkey = {
+  lazy = true,
   n = {
     ['<leader>wK'] = {
       function() vim.cmd 'WhichKey' end,
