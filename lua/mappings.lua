@@ -14,7 +14,7 @@ M.example = {
     {"<C-e>",'"+P',"Paste5"},
     ["<C-f>"] = {'"+P',"Paste6"}
   }
-}]]
+]]
 
 M.general = {
 
@@ -25,6 +25,9 @@ M.general = {
     ['K'] = { ":m '<-2<CR>gv=gv", 'Move selected text up' },
     ['<Tab>'] = { '>gv', 'Increase indentation of selected text' },
     ['<S-Tab>'] = { '<gv', 'Decrease indentation of selected text' },
+    ['>'] = {'>gv', 'keep visual while > indenting'},
+    ['<'] = {'<gv', 'keep visual while > indenting'}
+
   },
 
   nvi = {
@@ -32,6 +35,10 @@ M.general = {
     ['<M-d>'] = { '<cmd> bnext  <CR>', 'next buffer' },
     ['<M-[>'] = { '<cmd> tabprev  <CR>', 'prev tab' },
     ['<M-]>'] = { '<cmd> tabnext  <CR>', 'next tab' },
+    ['<C-left>'] = { '<C-w>h', 'window left' },
+    ['<C-right>'] = { '<C-w>l', 'window right' },
+    ['<C-down>'] = { '<C-w>j', 'window down' },
+    ['<C-up>'] = { '<C-w>k', 'window up' },
   },
 
   i = {
@@ -40,17 +47,21 @@ M.general = {
     ['<C-e>'] = { '<End>', 'End of line' },
 
     -- navigate within insert mode
-    ['<C-h>'] = { '<Left>', 'Move left' },
-    ['<C-l>'] = { '<Right>', 'Move right' },
-    ['<C-j>'] = { '<Down>', 'Move down' },
-    ['<C-k>'] = { '<Up>', 'Move up' },
+    ['<C-h>'] = { '<left>', 'move left' },
+    ['<C-l>'] = { '<right>', 'move right' },
+    ['<C-j>'] = { '<down>', 'move down' },
+    ['<C-k>'] = { '<up>', 'move up' },
   },
 
   n = {
+    ['<C-h>'] = { '<C-w>h', 'window left' },
+    ['<C-l>'] = { '<C-w>l', 'window right' },
+    ['<C-j>'] = { '<C-w>j', 'window down' },
+    ['<C-k>'] = { '<C-w>k', 'window up' },
     -- new ...
     ['<leader>nb'] = { '<cmd> enew <CR>', 'New buffer' },
     ['<leader>nt'] = { '<cmd> tabnew <CR>', 'New tab' },
-    ['<leader>nv'] = { '<cmd> vsplit <CR>', 'New vertical split' },
+    ['<leader>vs'] = { '<cmd> vsplit <CR>', 'New vertical split' },
     ['<leader>nh'] = { '<cmd> split <CR>', 'New horizontal split' },
     ['<Esc>'] = { ':noh <CR>', 'Clear highlights' },
 
@@ -150,7 +161,7 @@ M.lspconfig = {
     ['<leader>D'] = { vim.lsp.buf.type_definition, 'LSP definition type' },
     ['<leader>ca'] = { vim.lsp.buf.code_action, 'LSP code action' },
     ['gr'] = { vim.lsp.buf.references, 'LSP references' },
-    ['<leader>f'] = {
+    ['<leader>s'] = {
       function() vim.diagnostic.open_float { border = 'rounded' } end,
       'Floating diagnostic',
     },
@@ -196,6 +207,19 @@ M.dapvirtualtext = {
   lazy = true,
   n = {
     ['<F6>'] = {'<cmd> DapVirtualTextToggle <CR>', 'Toggle dap-virtual-text' },
+  }
+}
+
+M.molten = {
+  lazy = true,
+  v = {
+    ['m'] = {'<cmd> MoltenEvaluateVisual <CR>', 'MoltenEvaluateVisual selection'}
+  },
+  n = {
+    ['mm'] = {'<cmd> MoltenInit <CR>', 'MoltenInit' },
+    ['mq'] = {'<cmd> MoltenInit <CR>', 'MoltenDeinit' },
+    --['ms'] = {'<cmd> MoltenInit shared <CR>', 'MoltenInit shared' },
+    ['ml'] = {'<cmd> MoltenEvaluateLine <CR>', 'MoltenEvaluateLine' }
   }
 }
 

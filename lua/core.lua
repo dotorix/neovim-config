@@ -51,7 +51,30 @@ opt.whichwrap:append '<>[]hl'
 
 g.mapleader = ' '
 
+--g.rust_recommended_style = false
+g.python_recommended_style = false
 -- disable some default providers
-for _, provider in ipairs { 'node', 'perl', 'python3', 'ruby' } do
-  vim.g['loaded_' .. provider .. '_provider'] = 0
+-- molten (jupyter client) requires python provider
+for _, provider in ipairs { 'node', 'perl', 'ruby' } do
+  g['loaded_' .. provider .. '_provider'] = 0
 end
+
+-- custom python3 provider
+g.python3_host_prog = '/usr/bin/python3'
+--g.loaded_python3_provider = 1
+
+
+local function escape(str)
+  local escape_chars = [[;,."|\]]
+  return vim.fn.escape(str, escape_chars)
+end
+
+--local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
+--local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+-- Здесь я не добавляю ',.' и 'бю', чтобы впоследствии не было рекурсивного вызова комманды
+--local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm]]
+--local ru = [[ёйцукенгшщзхъфывапролджэячсмить]]
+--vim.opt.langmap = vim.fn.join({
+--  escape(ru_shift) .. ';' .. escape(en_shift),
+--  escape(ru) .. ';' .. escape(en),
+--}, ',')

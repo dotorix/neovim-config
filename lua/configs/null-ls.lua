@@ -33,6 +33,10 @@ local sources = {
   -- json
   b.formatting.jq,
 
+  -- JS
+  -- An opinionated code formatter for JS, JSON, CSS, YAML and much more
+  b.formatting.prettier,
+
   --[[b.diagnostics.sqlfluff.with({
     extra_args = { "--dialect", "postgres" }, -- change to your dialect
   }),]]

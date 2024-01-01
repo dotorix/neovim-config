@@ -1,25 +1,26 @@
-require "core"
+require 'core'
 
-
-require("utils").load_mappings() --didn't fully get it
+require('utils').load_mappings() --didn't fully get it
 
 -- bootstrap lazy.nvim if needed
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  require("bootstrap").lazy(lazypath)
+  require('bootstrap').lazy(lazypath)
 else
   vim.opt.rtp:prepend(lazypath)
-  require "plugins"
+  require 'plugins'
 end
 --dofile(vim.g.base46_cache .. "defaults")
 
-if vim.g.neovide then
-  require("neovide").init()
-end
+if vim.g.neovide then require('neovide').init() end
 
-vim.cmd('colorscheme onedark')
+vim.cmd 'colorscheme onedark'
 
 --[[local mappings_table = vim.api.nvim_get_keymap('')
 for _, mapping in ipairs(mappings_table) do
   print(mapping.lhs,"->",mapping.rhs)
 end]]
+
+--for k,v in pairs(vim.opt) do
+--  print(k,v)
+--end

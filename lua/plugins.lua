@@ -16,7 +16,15 @@ local plugins = {
     priority = 1000,
     --opts = {},
   },]]
-
+  -- language-specific mapping
+  --[[{
+    'Wansmer/langmapper.nvim',
+    lazy = false,
+    priority = 1, -- High priority is needed if you will use `autoremap()`
+    config = function()
+      require'langmapper'.setup {}
+    end,
+  }]]
   -- colorscheme customization
   --[[{
     "rktjmp/lush.nvim",
@@ -145,6 +153,26 @@ local plugins = {
       return require'configs.dap-ui'.virtualtext
     end
   },
+
+  -------- jupyter integration --------
+  {
+    'benlubas/molten-nvim',
+    build = ":UpdateRemotePlugins",
+    config = function()
+      --require'molten'
+      --require'configs.molten_nvim'
+    end
+    --[['dccsillag/magma-nvim',
+    cmd = { 'MagmaInit' },-- 'MagmaDeinit', 'MagmaEvaluateLine', 'MagmaEvaluateVisual',
+      --'MagmaEvaluateOperator', 'MagmaEvaluateArgument', 'MagmaReevaluateCell', 'MagmaDelete' },
+    --lazy=false,
+    build = ":UpdateRemotePlugins",
+    config = function()
+      --require'configs.magma'
+    end]]
+  },
+
+
   -------- navigation stuff --------
   {
     'nvim-treesitter/nvim-treesitter',

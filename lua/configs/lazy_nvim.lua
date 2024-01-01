@@ -1,6 +1,7 @@
 return {
   defaults = { lazy = true },
   install = {},
+  --concurrency = 12,
 
   ui = {
     icons = {
@@ -34,7 +35,7 @@ return {
         'zip',
         'zipPlugin',
         'tutor',
-        'rplugin',
+        --'rplugin', -- need this for molten-nvim (jupyter)
         'syntax',
         'synmenu',
         'optwin',
