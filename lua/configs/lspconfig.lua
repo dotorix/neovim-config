@@ -1,6 +1,10 @@
 local M = {}
 
-local servers = { 'rust_analyzer', 'clangd', 'lua_ls', 'sqlls' } --, "pyright", "lua_ls"} -- "pylsp"
+local servers = { 'rust_analyzer', 'clangd', 'lua_ls', 'sqlls', 'nil_ls' } --, "pyright", "lua_ls"} -- "pylsp"
+
+-- support for mason.nvim
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+--vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (vim.fn.has("win32") and ";" or ":") .. vim.env.PATH
 
 M.on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
