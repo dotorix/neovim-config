@@ -85,8 +85,8 @@ local plugins = {
     },
   },
 
-  -- auto-completion
   {
+    -- auto-completion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
@@ -116,7 +116,7 @@ local plugins = {
     end,]]
   },
 
-  -- debugging
+  -------- debugging stuff --------
   {
     'mfussenegger/nvim-dap',
     cmd = {
@@ -154,27 +154,26 @@ local plugins = {
     end
   },
 
-  -------- jupyter integration --------
+
+  -------- jupyter kernel integration --------
   {
-    'benlubas/molten-nvim',
+    'benlubas/molten-nvim', -- fork of magma-nvim
     build = ":UpdateRemotePlugins",
+    init = function()
+      require'utils'.load_mappings'molten'
+    end,
     config = function()
       --require'molten'
       --require'configs.molten_nvim'
     end
-    --[['dccsillag/magma-nvim',
-    cmd = { 'MagmaInit' },-- 'MagmaDeinit', 'MagmaEvaluateLine', 'MagmaEvaluateVisual',
-      --'MagmaEvaluateOperator', 'MagmaEvaluateArgument', 'MagmaReevaluateCell', 'MagmaDelete' },
-    --lazy=false,
-    build = ":UpdateRemotePlugins",
-    config = function()
-      --require'configs.magma'
-    end]]
   },
 
 
   -------- navigation stuff --------
+
   {
+    -- syntax parsed into tree -> highlighting
+    -- ported from the Atom text editor
     'nvim-treesitter/nvim-treesitter',
     cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
     build = ':TSUpdate',
@@ -189,8 +188,8 @@ local plugins = {
     end,
   },
 
-  -- fuzzy finder
   {
+    -- fuzzy finder
     'nvim-telescope/telescope.nvim',
     --dependencies = "nvim-treesitter/nvim-treesitter",
     cmd = 'Telescope',
@@ -210,8 +209,8 @@ local plugins = {
     end,
   },
 
-  -- GIGACHAD navigation plugin
   {
+    -- GIGACHAD navigation plugin
     'ThePrimeagen/harpoon',
     init = function()
       require'utils'.load_mappings'harpoon'
@@ -224,7 +223,7 @@ local plugins = {
     end,
   },
 
-  -- status line
+  ---- status lines ----
   {
     'nvim-lualine/lualine.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -249,8 +248,8 @@ local plugins = {
     end,
   },]]
 
-  -- just the sidebar fs tree
   {
+    -- just the sidebar fs tree
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
     init = function()
