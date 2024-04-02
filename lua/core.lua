@@ -53,6 +53,7 @@ g.mapleader = ' '
 
 --g.rust_recommended_style = false
 g.python_recommended_style = false
+g.cpp_recommemnded_style = false
 -- disable some default providers
 -- molten (jupyter client) requires python provider
 for _, provider in ipairs { 'node', 'perl', 'ruby' } do

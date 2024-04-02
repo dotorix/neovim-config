@@ -3,9 +3,9 @@ M = {}
 M.lspconfig = {
   automatic_installation = false,
   ensure_installed = {
-    'rust_analyzer', -- "rustfmt",
-    'pyright',
-    'clangd',
+    --'rust_analyzer', -- "rustfmt",
+    --'pyright',
+    --'clangd',
   },
 }
 
