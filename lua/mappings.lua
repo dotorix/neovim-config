@@ -26,7 +26,7 @@ M.general = {
     ['<Tab>'] = { '>gv', 'Increase indentation of selected text' },
     ['<S-Tab>'] = { '<gv', 'Decrease indentation of selected text' },
     ['>'] = {'>gv', 'keep visual while > indenting'},
-    ['<'] = {'<gv', 'keep visual while > indenting'}
+    ['<'] = {'<gv', 'keep visual while < indenting'}
 
   },
 
@@ -207,6 +207,13 @@ M.dapvirtualtext = {
   lazy = true,
   n = {
     ['<F6>'] = {'<cmd> DapVirtualTextToggle <CR>', 'Toggle dap-virtual-text' },
+  }
+}
+
+M.markdown = {
+  lazy = true,
+  n = {
+    ['<leader>mp'] = { function() require'render-markdown'.toggle() end, 'Toggle markdown preview' },
   }
 }
 

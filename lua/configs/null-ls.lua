@@ -49,6 +49,7 @@ local sources = {
       '-u','1', '-U','1', '-f','1', '-g'
     }
   }),]]
+  b.formatting.nixpkgs_fmt,
 }
 
 null_ls.setup {

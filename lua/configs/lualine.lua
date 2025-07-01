@@ -84,7 +84,7 @@ return {
     lualine_y = {},
     lualine_z = {}
   },]]
-  
+
   tabline = {
     --lualine_c = {'filename', cond = show_tabs_condition}
   },
@@ -133,4 +133,20 @@ return {
   -- selectioncount (number of selected characters or lines)
   -- tabs (shows currently available tabs)
   -- windows (shows currently available windows)
+]]
+
+-- bufferlien config
+--[[
+
+return {
+  options = {
+    mode = 'tabs',
+    themable = true,
+    offsets = { { filetype = 'NvimTree', text = '', padding = 1 } },
+    show_close_icon = true,
+    enforce_regular_tabs = true,
+    --sort_by = "extension",
+  },
+}
+
 ]]
